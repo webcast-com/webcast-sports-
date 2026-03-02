@@ -1,7 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
-
 <head>
+   <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-T2YTJMPMYE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-T2YTJMPMYE');
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>webcast sports</title>
@@ -13,7 +20,6 @@
   <script type="module" crossorigin src="https://widgets.api-sports.io/3.1.0/widgets.js"></script>
   <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
-
 <body>
   <nav class="header navbar navbar-expand-lg bg-body-tertiary sticky-top">
     <div class="container-fluid">
@@ -49,10 +55,8 @@
       </div>
     </div>
   </nav>
-
   <div class="content p-3">
     <div class="row">
-
       <div class="col-3">
         <div id="leagues-list" class="card text-bg-dark border-dark">
           <div class="card-body p-0">
@@ -60,7 +64,6 @@
           </div>
         </div>
       </div>
-
       <div class="col-5">
         <div id="games-list" class="card text-bg-dark border-dark">
           <div class="card-body p-0">
@@ -70,9 +73,7 @@
           </div>
         </div>
       </div>
-
       <div class="col-4">
-
         <!-- Start Dynamic Targeting containers -->
         <div class="card text-bg-dark border-dark">
           <div class="card-body p-0">
@@ -85,15 +86,12 @@
           </div>
         </div>
         <!-- End Dynamic Targeting containers -->
-
         <div id="game-content" class="card text-bg-dark border-dark">
           <div class="card-body p-0">
             <api-sports-widget data-type="game" data-game-id="977705"></api-sports-widget>
           </div>
         </div>
-
       </div>
-
     </div>
   </div>
 
@@ -155,5 +153,4 @@
     }));
   })
 </script>
-
 </html>
