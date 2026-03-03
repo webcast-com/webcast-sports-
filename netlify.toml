@@ -1,0 +1,17 @@
+[build]
+  command = "echo 'Static site - no build needed'"
+  publish = "/"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[env]
+  [env.production]
+    # Set API_SPORTS_KEY as environment variable in Netlify dashboard
+    # Site Settings → Build & Deploy → Environment → Add variable
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
