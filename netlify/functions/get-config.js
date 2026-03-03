@@ -15,7 +15,7 @@ exports.handler = async (event) => {
         'Cache-Control': 'public, max-age=300' // Cache for 5 minutes
       },
       body: JSON.stringify({
-        apiKey: process.env.API_SPORTS_KEY,
+        apiKey: process.env.data-key="8673444746a6314a40b74063b51be981",
         sport: 'football',
         lang: 'en',
         theme: 'grey',
