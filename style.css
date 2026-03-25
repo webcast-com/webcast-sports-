@@ -15,6 +15,13 @@
   --spacing-xl: 2rem;
   --card-border-radius: 0.375rem;
   --transition-speed: 0.3s ease-in-out;
+  --accent-blue: #38bdf8;
+  --accent-cyan: #22d3ee;
+  --accent-purple: #8b5cf6;
+  --accent-pink: #f43f5e;
+  --accent-amber: #f59e0b;
+  --accent-green: #84cc16;
+  --accent-orange: #f97316;
 }
 
 /* ========================================
@@ -35,6 +42,11 @@ html, body {
 
 body {
   background-color: var(--primary-dark);
+  background-image:
+    radial-gradient(circle at top center, rgba(249, 115, 22, 0.18), transparent 28%),
+    radial-gradient(circle at left center, rgba(56, 189, 248, 0.16), transparent 30%),
+    radial-gradient(circle at right top, rgba(244, 63, 94, 0.16), transparent 32%),
+    linear-gradient(180deg, #171a1f 0%, var(--primary-dark) 42%, #111418 100%);
   color: var(--text-light);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   font-size: 1rem;
@@ -83,8 +95,11 @@ p {
    ======================================== */
 
 .header {
-  background-color: var(--secondary-dark) !important;
-  border-bottom: 2px solid var(--border-dark);
+  background:
+    linear-gradient(135deg, rgba(249, 115, 22, 0.22), transparent 42%),
+    linear-gradient(90deg, #2d1f1a 0%, var(--secondary-dark) 48%, #182735 100%) !important;
+  border-bottom: 2px solid rgba(249, 115, 22, 0.38);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   padding: var(--spacing-md) 0;
 }
 
@@ -93,11 +108,32 @@ p {
   font-weight: 700;
   color: var(--text-light) !important;
   letter-spacing: 0.05em;
-  transition: color var(--transition-speed);
+  text-shadow: 0 0 14px rgba(249, 115, 22, 0.35);
+  transition: color var(--transition-speed), text-shadow var(--transition-speed);
 }
 
 .header .navbar-brand:hover {
-  color: #0d6efd !important;
+  color: var(--accent-amber) !important;
+  text-shadow: 0 0 18px rgba(245, 158, 11, 0.55);
+}
+
+.mobile-menu-toggle {
+  border: 1px solid rgba(249, 115, 22, 0.42) !important;
+  border-radius: 999px;
+  box-shadow: 0 0 0 1px rgba(249, 115, 22, 0.14), 0 8px 18px rgba(0, 0, 0, 0.2);
+  padding: 0.45rem 0.75rem;
+}
+
+.mobile-menu-toggle:hover {
+  background-color: rgba(249, 115, 22, 0.12);
+}
+
+.mobile-menu-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(245, 158, 11, 0.2), 0 8px 18px rgba(0, 0, 0, 0.2) !important;
+}
+
+.mobile-menu-toggle-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28249, 115, 22, 0.95%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2.5' d='M5 7h20M5 15h20M5 23h20'/%3e%3c/svg%3e") !important;
 }
 
 /* Mobile: Stack nav items vertically */
@@ -106,13 +142,89 @@ p {
     font-size: 0.85rem;
   }
 
-  .header .navbar-nav {
+  .header .mobile-sports-menu {
+    background:
+      linear-gradient(180deg, rgba(249, 115, 22, 0.12), rgba(17, 20, 24, 0.94)),
+      var(--secondary-dark);
+    border: 1px solid rgba(249, 115, 22, 0.24);
+    border-radius: 1rem;
+    box-shadow: 0 18px 36px rgba(0, 0, 0, 0.28);
+    margin-top: var(--spacing-md);
+    padding: var(--spacing-sm);
+  }
+
+  .header .navbar-nav,
+  .header .sports-nav-list {
+    gap: var(--spacing-sm);
     margin-top: var(--spacing-md);
   }
 
-  .header .nav-link {
-    padding: var(--spacing-sm) 0 !important;
+  .header .sports-nav-item {
+    width: 100%;
+  }
+
+  .header .nav-link,
+  .header .sports-nav-link {
+    align-items: center;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 999px;
+    display: flex;
     font-size: 0.95rem;
+    font-weight: 600;
+    justify-content: space-between;
+    padding: 0.75rem 1rem !important;
+  }
+
+  .header .sports-nav-link::after {
+    color: var(--accent-amber);
+    content: "›";
+    font-size: 1rem;
+  }
+
+  .header .nav-link:hover,
+  .header .nav-link.active,
+  .header .sports-nav-link:hover,
+  .header .sports-nav-link.active {
+    background: linear-gradient(90deg, rgba(249, 115, 22, 0.22), rgba(244, 63, 94, 0.16));
+    border-bottom-color: var(--accent-pink);
+    border-color: rgba(249, 115, 22, 0.35);
+  }
+
+  .mobile-menu-shortcuts {
+    display: grid;
+    gap: var(--spacing-sm);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .mobile-menu-section-link {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 0.875rem;
+    color: var(--text-light);
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 0.8rem 0.9rem;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .league-shortcut-link {
+    background: linear-gradient(135deg, rgba(132, 204, 22, 0.28), rgba(56, 189, 248, 0.12));
+    box-shadow: inset 0 0 0 1px rgba(132, 204, 22, 0.08);
+  }
+
+  .live-games-shortcut-link {
+    background: linear-gradient(135deg, rgba(249, 115, 22, 0.3), rgba(244, 63, 94, 0.14));
+    box-shadow: inset 0 0 0 1px rgba(249, 115, 22, 0.08);
+  }
+}
+
+@media (min-width: 992px) {
+  .mobile-menu-shortcuts {
+    display: none;
   }
 }
 
@@ -125,15 +237,18 @@ p {
 }
 
 .header .nav-link {
-  color: var(--text-light) !important;
-  transition: color var(--transition-speed);
+  color: rgba(248, 249, 250, 0.82) !important;
+  border-bottom: 2px solid transparent;
+  text-shadow: 0 0 12px transparent;
+  transition: color var(--transition-speed), border-color var(--transition-speed), text-shadow var(--transition-speed);
   cursor: pointer;
 }
 
 .header .nav-link:hover,
 .header .nav-link.active {
-  color: #0d6efd !important;
-  border-bottom: 2px solid #0d6efd;
+  color: var(--accent-amber) !important;
+  border-bottom: 2px solid var(--accent-pink);
+  text-shadow: 0 0 14px rgba(245, 158, 11, 0.45);
 }
 
 /* ========================================
@@ -141,7 +256,10 @@ p {
    ======================================== */
 
 .content {
-  background-color: var(--primary-dark);
+  background:
+    linear-gradient(180deg, rgba(249, 115, 22, 0.05), transparent 16%),
+    linear-gradient(90deg, rgba(56, 189, 248, 0.03), transparent 35%),
+    transparent;
   min-height: calc(100vh - 60px);
 }
 
@@ -218,29 +336,35 @@ p {
    ======================================== */
 
 .card {
-  background-color: var(--secondary-dark) !important;
-  border: 1px solid var(--border-dark) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 40%),
+    linear-gradient(135deg, rgba(249, 115, 22, 0.08), rgba(56, 189, 248, 0.08)),
+    var(--secondary-dark) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
   border-radius: var(--card-border-radius);
   margin-bottom: var(--spacing-md);
   overflow: hidden;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22), 0 0 0 1px rgba(249, 115, 22, 0.08);
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed), border-color var(--transition-speed);
   height: 100%;
 }
 
 .card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  border-color: rgba(249, 115, 22, 0.38) !important;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.28), 0 0 24px rgba(249, 115, 22, 0.14);
 }
 
 .card-header {
-  background-color: var(--primary-dark) !important;
-  border-bottom: 1px solid var(--border-dark) !important;
+  background:
+    linear-gradient(90deg, rgba(249, 115, 22, 0.2), rgba(56, 189, 248, 0.18)),
+    var(--primary-dark) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
   padding: var(--spacing-md);
   font-weight: 600;
   font-size: 0.95rem;
-  text-transform: uppercase;
   letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 /* Mobile: Reduced padding */
@@ -277,6 +401,60 @@ p {
   color: var(--text-light) !important;
 }
 
+#leagues-list,
+.league-panel {
+  border-color: rgba(132, 204, 22, 0.36) !important;
+  scroll-margin-top: 5.5rem;
+}
+
+#leagues-list .card-header {
+  background:
+    linear-gradient(90deg, rgba(132, 204, 22, 0.24), rgba(56, 189, 248, 0.14)),
+    var(--primary-dark) !important;
+}
+
+#games-list,
+.live-games-panel {
+  border-color: rgba(249, 115, 22, 0.38) !important;
+  scroll-margin-top: 5.5rem;
+}
+
+#games-list .card-header {
+  background:
+    linear-gradient(90deg, rgba(249, 115, 22, 0.26), rgba(244, 63, 94, 0.18)),
+    var(--primary-dark) !important;
+}
+
+.content .col-lg-4 > .card:nth-child(1) {
+  border-color: rgba(245, 158, 11, 0.34) !important;
+}
+
+.content .col-lg-4 > .card:nth-child(1) .card-header {
+  background:
+    linear-gradient(90deg, rgba(245, 158, 11, 0.24), rgba(249, 115, 22, 0.18)),
+    var(--primary-dark) !important;
+}
+
+.content .col-lg-4 > .card:nth-child(2) {
+  border-color: rgba(244, 63, 94, 0.3) !important;
+}
+
+.content .col-lg-4 > .card:nth-child(2) .card-header {
+  background:
+    linear-gradient(90deg, rgba(244, 63, 94, 0.24), rgba(139, 92, 246, 0.16)),
+    var(--primary-dark) !important;
+}
+
+#game-content {
+  border-color: rgba(56, 189, 248, 0.32) !important;
+}
+
+#game-content .card-header {
+  background:
+    linear-gradient(90deg, rgba(56, 189, 248, 0.24), rgba(34, 211, 238, 0.16)),
+    var(--primary-dark) !important;
+}
+
 /* ========================================
    API SPORTS WIDGETS - RESPONSIVE
    ======================================== */
@@ -309,6 +487,7 @@ api-sports-widget {
 button, .btn, a.btn {
   border-radius: var(--card-border-radius);
   font-weight: 500;
+  box-shadow: 0 0 0 1px rgba(249, 115, 22, 0.16);
   transition: all var(--transition-speed);
   cursor: pointer;
   white-space: nowrap;
@@ -323,6 +502,10 @@ button, .btn, a.btn {
     min-height: 44px;
     min-width: 44px;
   }
+}
+
+button:hover, .btn:hover, a.btn:hover {
+  box-shadow: 0 10px 24px rgba(249, 115, 22, 0.18);
 }
 
 button:active, .btn:active {
@@ -359,7 +542,7 @@ button:active, .btn:active {
 button:focus,
 .btn:focus,
 a:focus {
-  outline: 2px solid #0d6efd;
+  outline: 2px solid var(--accent-amber);
   outline-offset: 2px;
 }
 
@@ -446,12 +629,12 @@ a:focus {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--border-dark);
+  background: linear-gradient(180deg, var(--accent-blue), var(--accent-purple));
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #6c757d;
+  background: linear-gradient(180deg, var(--accent-cyan), var(--accent-pink));
 }
 
 /* ========================================
