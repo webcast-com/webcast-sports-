@@ -15,12 +15,13 @@
   --spacing-xl: 2rem;
   --card-border-radius: 0.375rem;
   --transition-speed: 0.3s ease-in-out;
-  --accent-blue: #4dabf7;
+  --accent-blue: #38bdf8;
   --accent-cyan: #22d3ee;
-  --accent-purple: #a855f7;
-  --accent-pink: #f472b6;
-  --accent-amber: #fbbf24;
-  --accent-green: #34d399;
+  --accent-purple: #8b5cf6;
+  --accent-pink: #f43f5e;
+  --accent-amber: #f59e0b;
+  --accent-green: #84cc16;
+  --accent-orange: #f97316;
 }
 
 /* ========================================
@@ -42,10 +43,10 @@ html, body {
 body {
   background-color: var(--primary-dark);
   background-image:
-    radial-gradient(circle at top left, rgba(34, 211, 238, 0.2), transparent 30%),
-    radial-gradient(circle at top right, rgba(168, 85, 247, 0.18), transparent 35%),
-    radial-gradient(circle at bottom center, rgba(251, 191, 36, 0.12), transparent 40%),
-    linear-gradient(180deg, #1b1f24 0%, var(--primary-dark) 45%, #16191d 100%);
+    radial-gradient(circle at top center, rgba(249, 115, 22, 0.18), transparent 28%),
+    radial-gradient(circle at left center, rgba(56, 189, 248, 0.16), transparent 30%),
+    radial-gradient(circle at right top, rgba(244, 63, 94, 0.16), transparent 32%),
+    linear-gradient(180deg, #171a1f 0%, var(--primary-dark) 42%, #111418 100%);
   color: var(--text-light);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   font-size: 1rem;
@@ -95,9 +96,9 @@ p {
 
 .header {
   background:
-    linear-gradient(135deg, rgba(77, 171, 247, 0.16), transparent 45%),
-    linear-gradient(90deg, #2a3038 0%, var(--secondary-dark) 55%, #2a243a 100%) !important;
-  border-bottom: 2px solid rgba(77, 171, 247, 0.35);
+    linear-gradient(135deg, rgba(249, 115, 22, 0.22), transparent 42%),
+    linear-gradient(90deg, #2d1f1a 0%, var(--secondary-dark) 48%, #182735 100%) !important;
+  border-bottom: 2px solid rgba(249, 115, 22, 0.38);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   padding: var(--spacing-md) 0;
 }
@@ -107,13 +108,13 @@ p {
   font-weight: 700;
   color: var(--text-light) !important;
   letter-spacing: 0.05em;
-  text-shadow: 0 0 14px rgba(77, 171, 247, 0.35);
+  text-shadow: 0 0 14px rgba(249, 115, 22, 0.35);
   transition: color var(--transition-speed), text-shadow var(--transition-speed);
 }
 
 .header .navbar-brand:hover {
-  color: var(--accent-cyan) !important;
-  text-shadow: 0 0 18px rgba(34, 211, 238, 0.55);
+  color: var(--accent-amber) !important;
+  text-shadow: 0 0 18px rgba(245, 158, 11, 0.55);
 }
 
 /* Mobile: Stack nav items vertically */
@@ -150,9 +151,9 @@ p {
 
 .header .nav-link:hover,
 .header .nav-link.active {
-  color: var(--accent-cyan) !important;
+  color: var(--accent-amber) !important;
   border-bottom: 2px solid var(--accent-pink);
-  text-shadow: 0 0 14px rgba(34, 211, 238, 0.45);
+  text-shadow: 0 0 14px rgba(245, 158, 11, 0.45);
 }
 
 /* ========================================
@@ -160,7 +161,10 @@ p {
    ======================================== */
 
 .content {
-  background: linear-gradient(180deg, rgba(77, 171, 247, 0.04), transparent 18%), transparent;
+  background:
+    linear-gradient(180deg, rgba(249, 115, 22, 0.05), transparent 16%),
+    linear-gradient(90deg, rgba(56, 189, 248, 0.03), transparent 35%),
+    transparent;
   min-height: calc(100vh - 60px);
 }
 
@@ -239,26 +243,26 @@ p {
 .card {
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 40%),
-    linear-gradient(135deg, rgba(77, 171, 247, 0.08), rgba(168, 85, 247, 0.08)),
+    linear-gradient(135deg, rgba(249, 115, 22, 0.08), rgba(56, 189, 248, 0.08)),
     var(--secondary-dark) !important;
   border: 1px solid rgba(255, 255, 255, 0.08) !important;
   border-radius: var(--card-border-radius);
   margin-bottom: var(--spacing-md);
   overflow: hidden;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22), 0 0 0 1px rgba(77, 171, 247, 0.08);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22), 0 0 0 1px rgba(249, 115, 22, 0.08);
   transition: transform var(--transition-speed), box-shadow var(--transition-speed), border-color var(--transition-speed);
   height: 100%;
 }
 
 .card:hover {
   transform: translateY(-2px);
-  border-color: rgba(77, 171, 247, 0.35) !important;
-  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.28), 0 0 24px rgba(77, 171, 247, 0.12);
+  border-color: rgba(249, 115, 22, 0.38) !important;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.28), 0 0 24px rgba(249, 115, 22, 0.14);
 }
 
 .card-header {
   background:
-    linear-gradient(90deg, rgba(77, 171, 247, 0.18), rgba(168, 85, 247, 0.18)),
+    linear-gradient(90deg, rgba(249, 115, 22, 0.2), rgba(56, 189, 248, 0.18)),
     var(--primary-dark) !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
   padding: var(--spacing-md);
@@ -303,52 +307,52 @@ p {
 }
 
 #leagues-list {
-  border-color: rgba(52, 211, 153, 0.35) !important;
+  border-color: rgba(132, 204, 22, 0.36) !important;
 }
 
 #leagues-list .card-header {
   background:
-    linear-gradient(90deg, rgba(52, 211, 153, 0.22), rgba(34, 211, 238, 0.12)),
+    linear-gradient(90deg, rgba(132, 204, 22, 0.24), rgba(56, 189, 248, 0.14)),
     var(--primary-dark) !important;
 }
 
 #games-list {
-  border-color: rgba(77, 171, 247, 0.38) !important;
+  border-color: rgba(249, 115, 22, 0.38) !important;
 }
 
 #games-list .card-header {
   background:
-    linear-gradient(90deg, rgba(77, 171, 247, 0.22), rgba(168, 85, 247, 0.16)),
+    linear-gradient(90deg, rgba(249, 115, 22, 0.26), rgba(244, 63, 94, 0.18)),
     var(--primary-dark) !important;
 }
 
 .content .col-lg-4 > .card:nth-child(1) {
-  border-color: rgba(251, 191, 36, 0.32) !important;
+  border-color: rgba(245, 158, 11, 0.34) !important;
 }
 
 .content .col-lg-4 > .card:nth-child(1) .card-header {
   background:
-    linear-gradient(90deg, rgba(251, 191, 36, 0.24), rgba(244, 114, 182, 0.14)),
+    linear-gradient(90deg, rgba(245, 158, 11, 0.24), rgba(249, 115, 22, 0.18)),
     var(--primary-dark) !important;
 }
 
 .content .col-lg-4 > .card:nth-child(2) {
-  border-color: rgba(244, 114, 182, 0.3) !important;
+  border-color: rgba(244, 63, 94, 0.3) !important;
 }
 
 .content .col-lg-4 > .card:nth-child(2) .card-header {
   background:
-    linear-gradient(90deg, rgba(244, 114, 182, 0.24), rgba(168, 85, 247, 0.16)),
+    linear-gradient(90deg, rgba(244, 63, 94, 0.24), rgba(139, 92, 246, 0.16)),
     var(--primary-dark) !important;
 }
 
 #game-content {
-  border-color: rgba(34, 211, 238, 0.3) !important;
+  border-color: rgba(56, 189, 248, 0.32) !important;
 }
 
 #game-content .card-header {
   background:
-    linear-gradient(90deg, rgba(34, 211, 238, 0.24), rgba(77, 171, 247, 0.16)),
+    linear-gradient(90deg, rgba(56, 189, 248, 0.24), rgba(34, 211, 238, 0.16)),
     var(--primary-dark) !important;
 }
 
@@ -384,7 +388,7 @@ api-sports-widget {
 button, .btn, a.btn {
   border-radius: var(--card-border-radius);
   font-weight: 500;
-  box-shadow: 0 0 0 1px rgba(77, 171, 247, 0.14);
+  box-shadow: 0 0 0 1px rgba(249, 115, 22, 0.16);
   transition: all var(--transition-speed);
   cursor: pointer;
   white-space: nowrap;
@@ -402,7 +406,7 @@ button, .btn, a.btn {
 }
 
 button:hover, .btn:hover, a.btn:hover {
-  box-shadow: 0 10px 24px rgba(77, 171, 247, 0.16);
+  box-shadow: 0 10px 24px rgba(249, 115, 22, 0.18);
 }
 
 button:active, .btn:active {
@@ -439,7 +443,7 @@ button:active, .btn:active {
 button:focus,
 .btn:focus,
 a:focus {
-  outline: 2px solid var(--accent-cyan);
+  outline: 2px solid var(--accent-amber);
   outline-offset: 2px;
 }
 
