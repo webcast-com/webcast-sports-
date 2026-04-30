@@ -120,7 +120,7 @@
             <div class="card-header bg-dark fw-bold">
               Leagues
             </div>
-            <div class="card-body p-2 p-md-3">
+            <div class="card-body p-0">
               <api-sports-widget data-type="leagues"></api-sports-widget>
             </div>
           </div>
@@ -132,7 +132,7 @@
             <div class="card-header bg-dark fw-bold">
               Live Games & Scores
             </div>
-            <div class="card-body p-2 p-md-3">
+            <div class="card-body p-0">
               <api-sports-widget data-type="games"></api-sports-widget>
             </div>
           </div>
@@ -146,7 +146,7 @@
             <div class="card-header bg-dark fw-bold">
               Standings
             </div>
-            <div class="card-body p-2 p-md-3">
+            <div class="card-body p-0">
               <div id="standings-content"></div>
             </div>
           </div>
@@ -156,7 +156,7 @@
             <div class="card-header bg-dark fw-bold">
               Team Information
             </div>
-            <div class="card-body p-2 p-md-3">
+            <div class="card-body p-0">
               <div id="team-content"></div>
             </div>
           </div>
@@ -166,7 +166,7 @@
             <div class="card-header bg-dark fw-bold">
               Match Details
             </div>
-            <div class="card-body p-2 p-md-3">
+            <div class="card-body p-0">
               <api-sports-widget data-type="game" data-game-id="977705"></api-sports-widget>
             </div>
           </div>
@@ -258,11 +258,6 @@
         bubbles: true,
         cancelable: true
       }));
-    });
-
-    // Push ads script when page loads
-    window.addEventListener('load', function() {
-      (adsbygoogle = window.adsbygoogle || []).push({});
     });
   </script>
 </body>
