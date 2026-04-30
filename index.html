@@ -73,32 +73,36 @@
   <nav class="header navbar navbar-expand-lg bg-body-tertiary sticky-top">
     <div class="container-fluid">
       <a class="navbar-brand fw-bold" href="/">⚽ WEBCAST SPORTS</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      <button class="navbar-toggler mobile-menu-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+        <span class="navbar-toggler-icon mobile-menu-toggle-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" data-sport="football" href="#" role="button">⚽ Football</a>
+      <div class="collapse navbar-collapse mobile-sports-menu" id="navbarSupportedContent">
+        <div class="mobile-menu-shortcuts d-lg-none">
+          <a class="mobile-menu-section-link league-shortcut-link" href="#leagues-list">Leagues</a>
+          <a class="mobile-menu-section-link live-games-shortcut-link" href="#games-list">Live Games</a>
+        </div>
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 sports-nav-list">
+          <li class="nav-item sports-nav-item">
+            <a class="nav-link sports-nav-link active" data-sport="football" href="#" role="button">⚽ Football</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" data-sport="baseball" href="#" role="button">⚾ Baseball</a>
+          <li class="nav-item sports-nav-item">
+            <a class="nav-link sports-nav-link" data-sport="baseball" href="#" role="button">⚾ Baseball</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" data-sport="basketball" href="#" role="button">🏀 Basketball</a>
+          <li class="nav-item sports-nav-item">
+            <a class="nav-link sports-nav-link" data-sport="basketball" href="#" role="button">🏀 Basketball</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" data-sport="handball" href="#" role="button">🤾 Handball</a>
+          <li class="nav-item sports-nav-item">
+            <a class="nav-link sports-nav-link" data-sport="handball" href="#" role="button">🤾 Handball</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" data-sport="hockey" href="#" role="button">🏒 Hockey</a>
+          <li class="nav-item sports-nav-item">
+            <a class="nav-link sports-nav-link" data-sport="hockey" href="#" role="button">🏒 Hockey</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" data-sport="rugby" href="#" role="button">🏉 Rugby</a>
+          <li class="nav-item sports-nav-item">
+            <a class="nav-link sports-nav-link" data-sport="rugby" href="#" role="button">🏉 Rugby</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" data-sport="volleyball" href="#" role="button">🏐 Volleyball</a>
+          <li class="nav-item sports-nav-item">
+            <a class="nav-link sports-nav-link" data-sport="volleyball" href="#" role="button">🏐 Volleyball</a>
           </li>
         </ul>
       </div>
@@ -112,7 +116,7 @@
         
         <!-- Leagues Column - Full width on mobile, 1/3 on tablet+, 25% on desktop -->
         <div class="col-12 col-md-6 col-lg-3 order-2 order-md-1">
-          <div id="leagues-list" class="card text-bg-dark border-dark h-100">
+          <div id="leagues-list" class="card league-panel text-bg-dark border-dark h-100">
             <div class="card-header bg-dark fw-bold">
               Leagues
             </div>
@@ -124,7 +128,7 @@
 
         <!-- Games Column - Full width on mobile, 1/2 on tablet, 5/12 on desktop -->
         <div class="col-12 col-md-6 col-lg-5 order-1 order-md-2">
-          <div id="games-list" class="card text-bg-dark border-dark h-100">
+          <div id="games-list" class="card live-games-panel text-bg-dark border-dark h-100">
             <div class="card-header bg-dark fw-bold">
               Live Games & Scores
             </div>
