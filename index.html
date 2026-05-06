@@ -54,13 +54,13 @@
     integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous" />
   
   <!-- API Sports Widgets -->
-  <script type="module" crossorigin src="https://widgets.api-sports.io/3.1.0/widgets.js"></script>
+  <script defer crossorigin src="https://widgets.api-sports.io/3.1.0/widgets.js"></script>
   
   <!-- Styles -->
   <link rel="stylesheet" type="text/css" href="style.css" />
   
-  <!-- Google AdSense (once is enough) -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4114931242579932"
+  <!-- Google AdSense (once is enough) - Loads after page -->
+  <script async defer src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4114931242579932"
      crossorigin="anonymous"></script>
 </head>
 <body> 
@@ -218,22 +218,31 @@
 
   <!-- Scripts -->
   <script>
-    // Load API config from secure Netlify function
+    // Load API config from secure Netlify function with timeout
     async function loadAPIConfig() {
       try {
-        const response = await fetch('/.netlify/functions/get-config');
+        const timeout = new Promise((_, reject) =>
+          setTimeout(() => reject(new Error('API config timeout')), 5000)
+        );
+
+        const response = await Promise.race([
+          fetch('/.netlify/functions/get-config'),
+          timeout
+        ]);
+
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const config = await response.json();
-        
+
         // Set the API key on the config widget
         const configWidget = document.querySelector('api-sports-widget[data-type="config"]');
-        if (configWidget) {
+        if (configWidget && config.apiKey) {
           configWidget.setAttribute('data-key', config.apiKey);
         }
       } catch (error) {
         console.error('Error loading API config:', error);
+        // Page continues to load even if config fetch fails
       }
     }
 
@@ -274,11 +283,23 @@
       }));
     });
 
-    // Fetch match predictions from API-Sports
+    // Fetch match predictions from API-Sports with timeout
     async function loadPredictions() {
       const container = document.getElementById('predictions-content');
+
+      // Create a timeout promise
+      const timeout = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('Request timeout')), 8000)
+      );
+
       try {
-        const response = await fetch('/.netlify/functions/get-config');
+        // Race between fetch and timeout
+        const configPromise = Promise.race([
+          fetch('/.netlify/functions/get-config'),
+          timeout
+        ]);
+
+        const response = await configPromise;
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -286,15 +307,19 @@
         const apiKey = config.apiKey;
 
         // Fetch predictions for the current sport (limited to upcoming matches)
-        const predictionsResponse = await fetch(
-          `https://v3.football.api-sports.io/predictions?league=39&season=2024&limit=5`,
-          {
-            headers: {
-              'x-apisports-key': apiKey
+        const predictionsPromise = Promise.race([
+          fetch(
+            `https://v3.football.api-sports.io/predictions?league=39&season=2024&limit=5`,
+            {
+              headers: {
+                'x-apisports-key': apiKey
+              }
             }
-          }
-        );
+          ),
+          timeout
+        ]);
 
+        const predictionsResponse = await predictionsPromise;
         if (!predictionsResponse.ok) {
           throw new Error(`API error! status: ${predictionsResponse.status}`);
         }
@@ -337,7 +362,7 @@
         container.innerHTML = html;
       } catch (error) {
         console.error('Error loading predictions:', error);
-        container.innerHTML = '<div class="text-center text-danger"><small>Failed to load predictions</small></div>';
+        container.innerHTML = '<div class="text-center text-muted"><small>Predictions unavailable</small></div>';
       }
     }
 
