@@ -162,12 +162,26 @@
           </div>
 
           <!-- Game Details Container -->
-          <div id="game-content" class="card text-bg-dark border-dark">
+          <div id="game-content" class="card text-bg-dark border-dark mb-2 mb-md-3">
             <div class="card-header bg-dark fw-bold">
               Match Details
             </div>
             <div class="card-body p-2 p-md-3">
               <api-sports-widget data-type="game" data-game-id="977705"></api-sports-widget>
+            </div>
+          </div>
+
+          <!-- Predictions Container -->
+          <div class="card text-bg-dark border-dark">
+            <div class="card-header bg-dark fw-bold">
+              Match Predictions
+            </div>
+            <div class="card-body p-2 p-md-3">
+              <div id="predictions-content">
+                <div class="text-center text-muted">
+                  <small>Loading predictions...</small>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -259,6 +273,76 @@
         cancelable: true
       }));
     });
+
+    // Fetch match predictions from API-Sports
+    async function loadPredictions() {
+      const container = document.getElementById('predictions-content');
+      try {
+        const response = await fetch('/.netlify/functions/get-config');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const config = await response.json();
+        const apiKey = config.apiKey;
+
+        // Fetch predictions for the current sport (limited to upcoming matches)
+        const predictionsResponse = await fetch(
+          `https://v3.football.api-sports.io/predictions?league=39&season=2024&limit=5`,
+          {
+            headers: {
+              'x-apisports-key': apiKey
+            }
+          }
+        );
+
+        if (!predictionsResponse.ok) {
+          throw new Error(`API error! status: ${predictionsResponse.status}`);
+        }
+
+        const data = await predictionsResponse.json();
+        const predictions = data.response || [];
+
+        if (predictions.length === 0) {
+          container.innerHTML = '<div class="text-center text-muted"><small>No predictions available</small></div>';
+          return;
+        }
+
+        // Create predictions list
+        let html = '<div class="predictions-list">';
+        predictions.forEach(pred => {
+          const homeTeam = pred.teams?.home?.name || 'Unknown';
+          const awayTeam = pred.teams?.away?.name || 'Unknown';
+          const prediction = pred.predictions?.winner?.name || 'Draw';
+          const confidence = pred.predictions?.winner?.comment || 'N/A';
+          const fixtureDate = pred.fixture?.date ? new Date(pred.fixture.date).toLocaleDateString() : 'TBD';
+
+          html += `
+            <div class="prediction-item mb-3 pb-3" style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+              <div class="prediction-match mb-2">
+                <small class="text-muted">${fixtureDate}</small>
+                <div class="d-flex justify-content-between align-items-center mt-1">
+                  <span class="prediction-team flex-grow-1">${homeTeam}</span>
+                  <span class="text-muted mx-2">vs</span>
+                  <span class="prediction-team flex-grow-1 text-end">${awayTeam}</span>
+                </div>
+              </div>
+              <div class="prediction-result">
+                <div class="badge bg-primary me-2">${prediction}</div>
+                <small class="text-muted">${confidence}</small>
+              </div>
+            </div>
+          `;
+        });
+        html += '</div>';
+        container.innerHTML = html;
+      } catch (error) {
+        console.error('Error loading predictions:', error);
+        container.innerHTML = '<div class="text-center text-danger"><small>Failed to load predictions</small></div>';
+      }
+    }
+
+    // Load predictions when DOM is ready
+    document.addEventListener('DOMContentLoaded', loadPredictions);
 
     // Push ads script when page loads
     window.addEventListener('load', function() {
