@@ -155,12 +155,37 @@ p {
 
   .header .navbar-nav,
   .header .sports-nav-list {
-    gap: var(--spacing-sm);
     margin-top: var(--spacing-md);
   }
 
+  /* Horizontal scrollable strip for sport buttons */
+  .header .sports-nav-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 0.6rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 0.25rem 0.25rem 0.5rem;
+    margin-left: -0.25rem;
+    margin-right: -0.25rem;
+  }
+
+  .header .sports-nav-list::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .header .sports-nav-list::-webkit-scrollbar-thumb {
+    background: rgba(249, 115, 22, 0.4);
+    border-radius: 4px;
+  }
+
   .header .sports-nav-item {
-    width: 100%;
+    width: auto;
+    flex-shrink: 0;
+    scroll-snap-align: start;
   }
 
   .header .nav-link,
@@ -170,16 +195,12 @@ p {
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 999px;
     display: flex;
-    font-size: 0.95rem;
+    font-size: 1.05rem;
     font-weight: 600;
-    justify-content: space-between;
-    padding: 0.75rem 1rem !important;
-  }
-
-  .header .sports-nav-link::after {
-    color: var(--accent-amber);
-    content: "›";
-    font-size: 1rem;
+    justify-content: center;
+    min-height: 52px;
+    padding: 0.85rem 1.4rem !important;
+    white-space: nowrap;
   }
 
   .header .nav-link:hover,
