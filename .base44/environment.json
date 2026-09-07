@@ -1,0 +1,12 @@
+{
+  "previewPort": 3000,
+  "healthPath": "/",
+  "startCommand": "docker compose -f docker-compose.base44.yml up -d",
+  "secrets": [
+    {
+      "name": "API_SPORTS_KEY",
+      "description": "API key from api-sports.io dashboard (https://dashboard.api-football.com/) — needed for the live scores widgets to load data",
+      "requiredAtBoot": false
+    }
+  ]
+}
