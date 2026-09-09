@@ -252,6 +252,117 @@ p {
 }
 
 /* ========================================
+   MOBILE SPORT QUICK SELECTOR
+   ======================================== */
+
+/* Sticky horizontal tab bar - always one tap away on phones/tablets.
+   Uses the app's signature orange/amber accent theme throughout. */
+.mobile-sport-tabs {
+  --tab-pad: 0.6rem 0.95rem;
+  -webkit-overflow-scrolling: touch;
+  background:
+    linear-gradient(180deg, rgba(249, 115, 22, 0.22), rgba(17, 20, 24, 0.7)),
+    var(--secondary-dark);
+  border-top: 1px solid rgba(249, 115, 22, 0.28);
+  box-shadow: inset 0 -1px 0 rgba(249, 115, 22, 0.14);
+  display: flex;
+  gap: var(--spacing-sm);
+  margin: 0;
+  overflow-x: auto;
+  padding: var(--spacing-xs) var(--spacing-sm) var(--spacing-sm);
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  width: 100%;
+}
+
+.mobile-sport-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.sport-tab {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+.sport-tab {
+  --sport-rgb: 249, 115, 22; /* default accent = app orange */
+  align-items: center;
+  background: linear-gradient(135deg, rgba(var(--sport-rgb), 0.22), rgba(var(--sport-rgb), 0.08));
+  border: 1px solid rgba(var(--sport-rgb), 0.4);
+  border-radius: 999px;
+  color: rgba(248, 249, 250, 0.96);
+  display: inline-flex;
+  font-size: 0.85rem;
+  font-weight: 600;
+  justify-content: center;
+  letter-spacing: 0.01em;
+  margin: 0;
+  min-height: 40px;
+  padding: var(--tab-pad);
+  text-shadow: 0 0 10px rgba(var(--sport-rgb), 0.3);
+  box-shadow: inset 0 0 0 1px rgba(var(--sport-rgb), 0.1), 0 4px 10px rgba(0, 0, 0, 0.18);
+  transition: background var(--transition-speed), border-color var(--transition-speed), color var(--transition-speed), box-shadow var(--transition-speed), transform var(--transition-speed);
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Per-sport accent colors (RGB triplets for rgba() compositing) */
+.sport-tab[data-sport="football"]   { --sport-rgb: 132, 204, 22; }  /* green pitch */
+.sport-tab[data-sport="baseball"]   { --sport-rgb: 248, 113, 113; } /* baseball red */
+.sport-tab[data-sport="basketball"] { --sport-rgb: 249, 115, 22; }  /* basketball orange */
+.sport-tab[data-sport="handball"]   { --sport-rgb: 34, 211, 238; }  /* handball teal */
+.sport-tab[data-sport="hockey"]     { --sport-rgb: 56, 189, 248; }  /* hockey ice blue */
+.sport-tab[data-sport="rugby"]      { --sport-rgb: 139, 92, 246; }  /* rugby violet */
+.sport-tab[data-sport="volleyball"] { --sport-rgb: 245, 158, 11; }  /* volleyball amber */
+
+.sport-tab:hover {
+  background: linear-gradient(135deg, rgba(var(--sport-rgb), 0.42), rgba(var(--sport-rgb), 0.18));
+  border-color: rgba(var(--sport-rgb), 0.62);
+  color: #ffffff;
+}
+
+.sport-tab.active {
+  background: linear-gradient(90deg, rgba(var(--sport-rgb), 0.42), rgba(var(--sport-rgb), 0.26));
+  border-color: rgba(var(--sport-rgb), 0.72);
+  box-shadow: 0 0 0 1px rgba(var(--sport-rgb), 0.24), 0 0 16px rgba(var(--sport-rgb), 0.34), 0 6px 14px rgba(0, 0, 0, 0.26);
+  color: #ffffff;
+  text-shadow: 0 0 12px rgba(var(--sport-rgb), 0.7);
+}
+
+/* Slightly larger, finger-friendly tabs on small phones */
+@media (max-width: 575px) {
+  .sport-tab {
+    font-size: 0.9rem;
+    min-height: 44px;
+  }
+}
+
+/* Compact navbar row on mobile so the sticky header doesn't eat vertical space */
+@media (max-width: 991px) {
+  .header {
+    padding: 0.5rem 0 0;
+  }
+
+  .header .container-fluid {
+    padding-bottom: 0.5rem;
+  }
+
+  .header .mobile-sport-tabs {
+    padding-bottom: 0.6rem;
+  }
+}
+
+/* Safe area for notched phones / gesture nav bar */
+@supports (padding: max(0px)) {
+  .header {
+    padding-top: max(0.5rem, env(safe-area-inset-top, 0px));
+  }
+
+  .mobile-sport-tabs {
+    padding-bottom: max(0.5rem, env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* ========================================
    MAIN CONTENT - RESPONSIVE GRID
    ======================================== */
 
@@ -266,7 +377,7 @@ p {
 /* Mobile: Stacked layout */
 @media (max-width: 575px) {
   .content {
-    padding: var(--spacing-sm) !important;
+    padding: var(--spacing-sm) var(--spacing-sm) calc(var(--spacing-lg) + env(safe-area-inset-bottom, 0px)) !important;
   }
 
   .content .row {
@@ -275,6 +386,22 @@ p {
 
   .content .col-12 {
     flex: 0 0 100% !important;
+  }
+
+  /* Tighter, less DOM-inflated cards on small screens */
+  .card {
+    margin-bottom: var(--spacing-sm);
+  }
+}
+
+/* Slightly wider phones - still stacked but a bit more room */
+@media (min-width: 576px) and (max-width: 767px) {
+  .content {
+    padding: var(--spacing-md) var(--spacing-md) calc(var(--spacing-lg) + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  .content .row {
+    gap: var(--spacing-md) !important;
   }
 }
 
@@ -405,6 +532,16 @@ p {
 .league-panel {
   border-color: rgba(132, 204, 22, 0.36) !important;
   scroll-margin-top: 5.5rem;
+}
+
+/* Taller sticky header (navbar + tab bar) on mobile */
+@media (max-width: 991px) {
+  #leagues-list,
+  .league-panel,
+  #games-list,
+  .live-games-panel {
+    scroll-margin-top: 7.5rem;
+  }
 }
 
 #leagues-list .card-header {

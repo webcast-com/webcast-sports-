@@ -107,6 +107,17 @@
         </ul>
       </div>
     </div>
+
+    <!-- Mobile Sport Quick Selector - always visible on small screens -->
+    <div class="mobile-sport-tabs d-lg-none" role="tablist" aria-label="Sport selector">
+      <button class="sport-tab active" data-sport="football" type="button" role="tab">⚽ Football</button>
+      <button class="sport-tab" data-sport="baseball" type="button" role="tab">⚾ Baseball</button>
+      <button class="sport-tab" data-sport="basketball" type="button" role="tab">🏀 Basketball</button>
+      <button class="sport-tab" data-sport="handball" type="button" role="tab">🤾 Handball</button>
+      <button class="sport-tab" data-sport="hockey" type="button" role="tab">🏒 Hockey</button>
+      <button class="sport-tab" data-sport="rugby" type="button" role="tab">🏉 Rugby</button>
+      <button class="sport-tab" data-sport="volleyball" type="button" role="tab">🏐 Volleyball</button>
+    </div>
   </nav>
 
   <!-- Main Content - Fully Responsive Grid -->
@@ -249,30 +260,50 @@
     // Load config when DOM is ready
     document.addEventListener('DOMContentLoaded', loadAPIConfig);
 
-    // Handle sport navigation
+    // Handle sport navigation (navbar links + mobile tab bar)
     document.addEventListener('click', function (event) {
-      if (!event.target.matches('.nav-link')) return;
+      const target = event.target.closest('.nav-link[data-sport], .sport-tab');
+      if (!target) return;
       event.preventDefault();
 
-      let sport = event.target.getAttribute('data-sport');
-      let navLinks = document.querySelectorAll('.nav-link');
-      navLinks.forEach(link => link.classList.remove('active'));
-      event.target.classList.add('active');
+      const sport = target.getAttribute('data-sport');
 
-      let widget = document.querySelector('api-sports-widget[data-type="config"]');
+      // Toggle active state across both nav links and mobile tabs
+      document.querySelectorAll('.nav-link[data-sport], .sport-tab').forEach(function (link) {
+        link.classList.remove('active');
+      });
+      target.classList.add('active');
+
+      // Close the collapsed mobile menu when a sport is chosen from it
+      const collapseEl = document.getElementById('navbarSupportedContent');
+      if (collapseEl && collapseEl.classList.contains('show') && target.classList.contains('nav-link')) {
+        bootstrap.Collapse.getOrCreateInstance(collapseEl).hide();
+      }
+
+      // Keep the active mobile tab centered in the horizontal bar
+      if (target.classList.contains('sport-tab')) {
+        const bar = document.querySelector('.mobile-sport-tabs');
+        if (bar) {
+          const barRect = bar.getBoundingClientRect();
+          const tabRect = target.getBoundingClientRect();
+          bar.scrollLeft += (tabRect.left - barRect.left) - (barRect.width / 2) + (tabRect.width / 2);
+        }
+      }
+
+      const widget = document.querySelector('api-sports-widget[data-type="config"]');
       widget.setAttribute('data-sport', sport);
 
-      let leagues = document.querySelector('api-sports-widget[data-type="leagues"]');
+      const leagues = document.querySelector('api-sports-widget[data-type="leagues"]');
       leagues.innerHTML = '';
       leagues.setAttribute('data-sport', sport);
       leagues.connectedCallback();
 
-      let games = document.querySelector('api-sports-widget[data-type="games"]');
+      const games = document.querySelector('api-sports-widget[data-type="games"]');
       games.innerHTML = '';
       games.setAttribute('data-sport', sport);
       games.connectedCallback();
 
-      let game = document.querySelector('api-sports-widget[data-type="game"]');
+      const game = document.querySelector('api-sports-widget[data-type="game"]');
       game.innerHTML = '';
       game.setAttribute('data-sport', sport);
       game.connectedCallback();
